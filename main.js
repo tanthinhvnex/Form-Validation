@@ -39,11 +39,11 @@ function Validator(options) {
 // khi có lỗi thì trả ra message lỗi
 // khi hợp lệ thì không làm gì cả (trả về Undefined)
 
-Validator.isRequired = function (selector) {
+Validator.isRequired = function (selector, message) {
     return {
         selector: selector,
         test: function (value) {
-            return value.trim() ? undefined : "Vui lòng nhập trường này";
+            return value.trim() ? undefined : message || "Vui lòng nhập trường này";
         },
     };
 };
@@ -62,6 +62,16 @@ Validator.minLength = function (selector, min) {
         selector: selector,
         test: function (value) {
             return value.length >= min ? undefined : `Vui lòng nhập tối thiêu ${min} kí tự`;
+        },
+    };
+};
+Validator.isConfirmed = function (selector, getConfirmValue, message) {
+    return {
+        selector: selector,
+        test: function (value) {
+            // Không ghi mật khẩu không chính xác: vì 1 hàm có thể dùng cho nhiều
+            // trường hợp khác nhau
+            return value == getConfirmValue() ? undefined : message || "Giá trị nhập vào không chính xác";
         },
     };
 };
