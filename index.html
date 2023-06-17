@@ -59,5 +59,18 @@
             </form>
         </div>
         <script src="main.js"></script>
+        <script>
+            Validator({
+                form: "#form-1",
+                errorSelector: ".form-message",
+                // Rules này đang chạy các hàm
+                // Lưu ý là chạy chứ không phải khai báo
+                rules: [
+                    Validator.isRequired("#fullname"),
+                    Validator.isEmail("#email"),
+                    Validator.minLength("#password", 6),
+                ],
+            });
+        </script>
     </body>
 </html>
