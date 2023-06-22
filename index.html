@@ -62,7 +62,12 @@
         <script>
             Validator({
                 form: "#form-1",
-                rules: [Validator.isRequired("#fullname"), Validator.isEmail("#email")],
+                errorSelector: ".form-message",
+                rules: [
+                    Validator.isRequired("#fullname"),
+                    Validator.isEmail("#email"),
+                    Validator.minlength("#password", 6),
+                ],
             });
         </script>
     </body>
